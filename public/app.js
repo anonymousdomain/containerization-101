@@ -17,24 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Render the list of todos.
   function renderTodos(todos) {
     list.innerHTML = '';
-    todos.forEach((todo, index) => {
-      // Here we assume that each todo is a string.
+    todos.forEach((todo) => {
       const li = document.createElement('li');
 
       const span = document.createElement('span');
-      span.textContent = todo;
+      span.textContent = todo.task; // Access the 'task' field from the object
       li.appendChild(span);
 
       // Create Edit button
       const editBtn = document.createElement('button');
       editBtn.textContent = 'Edit';
-      editBtn.onclick = () => editTodo(index, todo);
+      editBtn.onclick = () => editTodo(todo._id, todo.task); // Pass _id and task
       li.appendChild(editBtn);
 
       // Create Delete button
       const deleteBtn = document.createElement('button');
       deleteBtn.textContent = 'Delete';
-      deleteBtn.onclick = () => deleteTodo(index);
+      deleteBtn.onclick = () => deleteTodo(todo._id); // Pass _id only
       li.appendChild(deleteBtn);
 
       list.appendChild(li);
@@ -59,12 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Edit an existing todo task identified by its index.
-  async function editTodo(index, currentTask) {
+  // Edit an existing todo task using its _id
+  async function editTodo(id, currentTask) {
     const newTask = prompt('Edit task:', currentTask);
     if (!newTask || newTask.trim() === '') return;
     try {
-      const response = await fetch(`/api/todos/${index}`, {
+      const response = await fetch(`/api/todos/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ task: newTask })
@@ -79,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Delete a todo task identified by its index.
-  async function deleteTodo(index) {
+  // Delete a todo task using its _id
+  async function deleteTodo(id) {
     try {
-      const response = await fetch(`/api/todos/${index}`, {
+      const response = await fetch(`/api/todos/${id}`, {
         method: 'DELETE'
       });
       if (response.ok) {
