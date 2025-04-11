@@ -1,0 +1,17 @@
+{
+  "name": "simple-todo-app",
+  "version": "1.0.0",
+  "description": "A simple to-do list application built with Node.js and Express for a hands-on Docker workshop.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.13.2"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "keywords": []
+}
