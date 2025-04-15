@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://mongo:27017/todoapp', {
+mongoose.connect('mongodb://mongodb:27017/todoapp', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
